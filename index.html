@@ -16,22 +16,21 @@
     <style>
         /* Chat Box Styling */
         /* Updated Chat Box Styling */
-.chat-box {
+        .chat-box {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 400px; /* Increased width */
-  max-height: 500px; /* Increased height */
+  bottom: 20px; /* Position at bottom of the screen */
+  right: 20px; /* Align on the right */
+  width: 360px;
+  max-height: 500px;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  display: flex; /* Show chat box on load */
+  display: flex;
   flex-direction: column;
   overflow: hidden;
   z-index: 1000;
 }
-
   
         .chat-header {
           background-color: #4caf50;
@@ -101,8 +100,24 @@
        
         
 
+       /* Family Bond App Modal */
+.family-bond-modal {
+  display: none; /* Show by default */
+  position: fixed;
+  bottom: 185px; /* Place above the chat box with a 20px gap */
+  right: 20px; /* Align with chat box on the right */
+  width: 360px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1002;
+  align-items: center;
+  justify-content: center;
+}
 
-        /* Toggle Button Styling */
+
+        /* Place Family Bond button on the left side */
 .family-bond-toggle {
   background-color: #4caf50;
   color: #fff;
@@ -113,33 +128,19 @@
   font-size: 16px;
   position: fixed;
   bottom: 80px;
-  right: 20px;
+  left: 20px; /* Move button to the left side */
   z-index: 1001;
 }
-
-/* Family Bond App Modal */
-.family-bond-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1002;
-  align-items: center;
-  justify-content: center;
-}
-
-.family-bond-content {
+        .family-bond-content {
   width: 360px;
-  height: 640px;
+  height: 500px;
   background-color: #fff;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
 }
 
 .family-bond-header {
@@ -173,13 +174,119 @@
   display: block;
 }
 
-.section h4, .section h3 {
+.section h4, .section h3, .section h5 {
   color: #333;
+  margin-bottom: 10px;
 }
 
-.section p {
+.section p, .section ul, .section textarea {
   color: #666;
 }
+
+.section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.section ul li {
+  margin: 5px 0;
+}
+
+input[type="text"], input[type="password"], textarea, select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+textarea {
+  resize: none;
+}
+
+select, label {
+  display: block;
+  margin-top: 10px;
+}
+
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.button-container button {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.button-container button:hover {
+    background-color: #45a049;
+}
+
+
+
+
+
+
+/* Style for the profile list with images */
+.profile-list {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+}
+
+.profile-list li {
+    display: flex;
+    align-items: center; /* Center-align text and image */
+    gap: 10px; /* Space between image and name */
+    margin-bottom: 10px; /* Space between each family member */
+    font-size: 16px;
+    color: #333;
+}
+
+.profile-list img {
+    width: 40px; /* Set a uniform size for avatars */
+    height: 40px;
+    border-radius: 50%; /* Make images circular */
+}
+
+/* Optional styling for achievements list */
+.achievement-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.achievement-list li {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
 
 
       </style>
@@ -265,58 +372,129 @@
       <!-- Welcome & Onboarding Section -->
       <div class="section" id="welcome">
         <h3>Welcome to Family Bond</h3>
-        <p>Connect and engage with your family through activities and challenges!</p>
-        <button onclick="showSection('dashboard')">Get Started</button>
+        <p>Strengthen family connections through interactive activities and challenges!</p>
+        <button onclick="showSection('intro')">Start</button>
       </div>
-      
+
+      <!-- Introduction Slideshow Section -->
+      <div class="section" id="intro" style="display: none;">
+        <h3>Introduction</h3>
+        <p>Learn about our features to make the most of your family bonding experience.</p>
+        <ul>
+          <li>Weekly challenges for family bonding</li>
+          <li>Quizzes to deepen understanding of each other</li>
+          <li>Leaderboards and achievements</li>
+        </ul>
+        <button onclick="showSection('signup')">Next</button>
+      </div>
+
+      <!-- Sign-Up / Log-In Section -->
+      <div class="section" id="signup" style="display: none;">
+        <h3>Sign Up / Log In</h3>
+        <p>Register or log in to invite family members and start bonding!</p>
+        <input type="text" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button onclick="showSection('dashboard')">Log In</button>
+        <p>Or invite family members via shareable link:</p>
+        <button onclick="alert('Link copied! Share with family members.')">Copy Invite Link</button>
+      </div>
+
       <!-- Home Dashboard Section -->
       <div class="section" id="dashboard" style="display: none;">
         <h4>Home Dashboard</h4>
-        <p>Overview of family activities, recent interactions, and upcoming challenges.</p>
-        <button onclick="showSection('profile')">Family Profile</button>
-        <button onclick="showSection('quiz')">Quizzes & Challenges</button>
-        <button onclick="showSection('leaderboard')">Leaderboard</button>
-        <button onclick="showSection('settings')">Settings</button>
-      </div>
-      
+        <p>Stay up-to-date on family activities, challenges, and achievements.</p>
+        <ul>
+            <li><strong>Recent Activity:</strong> Family Quiz completed</li>
+            <li><strong>Upcoming:</strong> "Family Trivia Night" Challenge</li>
+            <li><strong>Notifications:</strong> New badge earned: "Family Unity"</li>
+        </ul>
+        
+        <div class="button-container">
+            <button onclick="showSection('profile')">Family Profile</button>
+            <button onclick="showSection('quiz')">Quizzes & Challenges</button>
+            <button onclick="showSection('leaderboard')">Leaderboard</button>
+            <button onclick="showSection('settings')">Settings</button>
+        </div>
+    </div>
+    
       <!-- Family Profile Section -->
       <div class="section" id="profile" style="display: none;">
         <h4>Family Profile</h4>
-        <p>Manage family members, track engagement, and invite new members.</p>
+        <p>View family members and track engagement.</p>
+        <ul class="profile-list">
+            <li><img src="assets/—Pngtree—user avatar placeholder black_6796227.png" alt="Avatar"> John - Father</li>
+            <li><img src="assets/—Pngtree—user avatar placeholder black_6796227.png" alt="Avatar"> Jane - Mother</li>
+            <li><img src="assets/—Pngtree—user avatar placeholder black_6796227.png" alt="Avatar"> Alex - Son</li>
+        </ul>
+        <button onclick="alert('Invite link copied!')">Add New Member</button>
+        
+        <h5>Achievements:</h5>
+        <ul class="achievement-list">
+            <li>Teamwork Badge</li>
+            <li>Family Quiz Master</li>
+        </ul>
         <button onclick="showSection('dashboard')">Back to Dashboard</button>
-      </div>
-      
+    </div>
+    
+
       <!-- Quizzes & Challenges Section -->
       <div class="section" id="quiz" style="display: none;">
         <h4>Quizzes & Challenges</h4>
-        <p>Take quizzes to learn more about each other and participate in weekly challenges.</p>
-        <button onclick="showSection('dashboard')">Back to Dashboard</button>
-      </div>
-      
+        <div>
+            <h5>Challenge of the Week:</h5>
+            <p>Family Game Night - Play a board game together!</p>
+        </div>
+        <div>
+            <h5>Family Quiz:</h5>
+            <p>How well do you know each other's favorite activities?</p>
+            <div class="button-container">
+                <button onclick="alert('Starting Quiz...')">Start Quiz</button>
+                <button onclick="showSection('dashboard')">Back to Dashboard</button>
+            </div>
+        </div>
+    </div>
+    
+
       <!-- Leaderboard Section -->
       <div class="section" id="leaderboard" style="display: none;">
         <h4>Leaderboard</h4>
-        <p>See how your family ranks and earn badges for achievements.</p>
+        <p>See how your family ranks and track badges earned.</p>
+        <ul>
+          <li><strong>Family Rank:</strong> 3rd out of 20</li>
+          <li><strong>Badges:</strong> Quiz Champion, Family Bonding Expert</li>
+        </ul>
         <button onclick="showSection('dashboard')">Back to Dashboard</button>
       </div>
-      
+
       <!-- Settings Section -->
       <div class="section" id="settings" style="display: none;">
         <h4>Settings</h4>
-        <p>Manage privacy, notification preferences, and app language.</p>
+        <h5>Privacy Settings:</h5>
+        <label><input type="checkbox" checked> Share achievements with other families</label>
+        <h5>Notifications:</h5>
+        <label><input type="checkbox" checked> Receive reminders for weekly challenges</label>
+        <h5>Language Preferences:</h5>
+        <select>
+          <option>English</option>
+          <option>Spanish</option>
+          <option>French</option>
+        </select>
         <button onclick="showSection('dashboard')">Back to Dashboard</button>
       </div>
-      
+
       <!-- Feedback & Support Section -->
       <div class="section" id="support" style="display: none;">
         <h4>Feedback & Support</h4>
-        <p>Have feedback or need help? Contact our support team here.</p>
+        <p>Provide feedback or reach out for support.</p>
+        <textarea placeholder="Write your feedback here..." rows="4"></textarea>
+        <button onclick="alert('Feedback submitted!')">Submit Feedback</button>
         <button onclick="showSection('dashboard')">Back to Dashboard</button>
       </div>
 
     </div>
   </div>
 </div>
+
 
 
 
@@ -477,77 +655,75 @@
     </footer>
 
     <script>
-        // Toggle Chat Box visibility
-        function toggleChat() {
-          const chatBox = document.getElementById("chat-box");
-          const chatToggle = document.querySelector(".chat-toggle");
-    
-          if (chatBox.style.display === "none" || chatBox.style.display === "") {
-            chatBox.style.display = "flex"; // Show chat box
-            chatToggle.style.display = "none"; // Hide toggle button
-          } else {
-            chatBox.style.display = "none"; // Hide chat box
-            chatToggle.style.display = "flex"; // Show toggle button
-          }
-        }
-    
-        // Handle sending message
-        function sendMessage() {
-          const inputField = document.getElementById("chat-input");
-          const chatContent = document.getElementById("chat-content");
-    
-          if (inputField.value.trim()) {
-            // Add user's message to chat
-            const userMessage = document.createElement("p");
-            userMessage.textContent = inputField.value;
-            userMessage.style.textAlign = "right";
-            userMessage.style.margin = "8px 0";
-            chatContent.appendChild(userMessage);
-    
-            // Clear input
-            inputField.value = "";
-    
-            // MigeBot response simulation (replace with actual response logic if needed)
-            const botMessage = document.createElement("p");
-            botMessage.textContent = "I'm here to help. Please provide more details.";
-            botMessage.style.textAlign = "left";
-            botMessage.style.margin = "8px 0";
-            chatContent.appendChild(botMessage);
-    
-            // Scroll to the bottom of the chat
-            chatContent.scrollTop = chatContent.scrollHeight;
-          }
-        }
-    
-        // Open chat box automatically on page load
-        window.onload = function() {
-          const chatBox = document.getElementById("chat-box");
-          const chatToggle = document.querySelector(".chat-toggle");
-    
-          chatBox.style.display = "flex"; // Display chat box on load
-          chatToggle.style.display = "none"; // Hide toggle button on load
-        };
+      // Toggle Chat Box visibility
+function toggleChat() {
+  const chatBox = document.getElementById("chat-box");
+  const chatToggle = document.querySelector(".chat-toggle");
 
-
-         
-  
-        
-
-
-        // Toggle Family Bond App modal
-function toggleFamilyBond() {
-  const modal = document.getElementById("family-bond-modal");
-  modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+  if (chatBox.style.display === "none" || chatBox.style.display === "") {
+    chatBox.style.display = "flex"; // Show chat box
+    chatToggle.style.display = "none"; // Hide toggle button
+  } else {
+    chatBox.style.display = "none"; // Hide chat box
+    chatToggle.style.display = "flex"; // Show toggle button
+  }
 }
 
-// Function to show sections
+// Handle sending message
+function sendMessage() {
+  const inputField = document.getElementById("chat-input");
+  const chatContent = document.getElementById("chat-content");
+
+  if (inputField.value.trim()) {
+    // Add user's message to chat
+    const userMessage = document.createElement("p");
+    userMessage.textContent = inputField.value;
+    userMessage.style.textAlign = "right";
+    userMessage.style.margin = "8px 0";
+    chatContent.appendChild(userMessage);
+
+    // Clear input
+    inputField.value = "";
+
+    // MigeBot response simulation (replace with actual response logic if needed)
+    const botMessage = document.createElement("p");
+    botMessage.textContent = "I'm here to help. Please provide more details.";
+    botMessage.style.textAlign = "left";
+    botMessage.style.margin = "8px 0";
+    chatContent.appendChild(botMessage);
+
+    // Scroll to the bottom of the chat
+    chatContent.scrollTop = chatContent.scrollHeight;
+  }
+}
+
+// Toggle Family Bond App modal
+function toggleFamilyBond() {
+  const modal = document.getElementById("family-bond-modal");
+  modal.style.display = modal.style.display === "none" ? "flex" : "none";
+}
+
+// Function to show sections within the Family Bond app
 function showSection(sectionId) {
   const sections = document.querySelectorAll('.family-bond-body .section');
   sections.forEach(section => section.style.display = 'none'); // Hide all sections
-  
   document.getElementById(sectionId).style.display = 'block'; // Show selected section
 }
 
+// Open both the Family Bond app and MigeBot chat on page load
+window.onload = function() {
+  // Show welcome screen by default for Family Bond
+  showSection('welcome');
+  
+  // Display both Family Bond modal and Chat Box on load
+  document.getElementById("family-bond-modal").style.display = "flex"; 
+  const chatBox = document.getElementById("chat-box");
+  chatBox.style.display = "flex"; // Display chat box on load
+  
+  // Hide chat toggle button on load
+  const chatToggle = document.querySelector(".chat-toggle");
+  chatToggle.style.display = "none";
+};
 
     </script>
     
