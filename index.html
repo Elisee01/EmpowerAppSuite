@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>MigeBot - Family and Gender Support</title>
+    <style>
+        /* Chat Box Styling */
+        /* Updated Chat Box Styling */
+.chat-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 400px; /* Increased width */
+  max-height: 500px; /* Increased height */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex; /* Show chat box on load */
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+  
+        .chat-header {
+          background-color: #4caf50;
+          color: #fff;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-weight: bold;
+          font-size: 16px;
+        }
+  
+        .chat-content {
+          padding: 10px;
+          flex-grow: 1;
+          overflow-y: auto;
+          font-size: 14px;
+        }
+  
+        .chat-input {
+          display: flex;
+          padding: 10px;
+          border-top: 1px solid #ddd;
+        }
+  
+        .chat-input input {
+          flex-grow: 1;
+          padding: 5px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          margin-right: 8px;
+        }
+  
+        .chat-input button {
+          background-color: #4caf50;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          padding: 6px 12px;
+          cursor: pointer;
+        }
+  
+        .chat-toggle {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: #4caf50;
+          color: #fff;
+          border: none;
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 24px;
+          z-index: 1001;
+        }
+
+
+        
+
+
+
+
+       
+        
+
+
+        /* Toggle Button Styling */
+.family-bond-toggle {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1001;
+}
+
+/* Family Bond App Modal */
+.family-bond-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1002;
+  align-items: center;
+  justify-content: center;
+}
+
+.family-bond-content {
+  width: 360px;
+  height: 640px;
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.family-bond-header {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.close-button {
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.family-bond-body {
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.section {
+  margin-bottom: 20px;
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.section h4, .section h3 {
+  color: #333;
+}
+
+.section p {
+  color: #666;
+}
+
+
+      </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="nav__header">
+        <div class="nav__logo">
+          <a href="#" class="logo">MigeBot</a>
+        </div>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+      </div>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav__search" id="nav-search">
+        <input type="text" placeholder="Search Topics" />
+        <span><i class="ri-search-2-line"></i></span>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="section__container header__container" id="home">
+      <div class="header__image">
+        <img src="assets/header.jpg" alt="MigeBot - Family Support" />
+      </div>
+      <div class="header__content">
+        <div>
+          <h1>Your Companion for Family & Gender Support</h1>
+          <p>
+            MigeBot offers guidance and resources on child protection, family cohesion, and gender equality, tailored by expert recommendations.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Chat Toggle Button -->
+    <button class="chat-toggle" onclick="toggleChat()">
+        <i class="ri-message-3-line"></i>
+      </button>
+  
+      <!-- Chat Box -->
+      <div class="chat-box" id="chat-box">
+        <div class="chat-header">
+          MigeBot Chat
+          <button onclick="toggleChat()"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="chat-content" id="chat-content">
+          <p>Hi there! How can I assist you today?</p>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="chat-input" placeholder="Type a message..." />
+          <button onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+
+
+      <!-- Button to open Family Bond app modal -->
+
+      
+
+
+
+
+      <!-- Button to open Family Bond app modal -->
+<button class="family-bond-toggle" onclick="toggleFamilyBond()">Family Bond App</button>
+
+<!-- Family Bond app modal (Mobile App Simulation) -->
+<div class="family-bond-modal" id="family-bond-modal">
+  <div class="family-bond-content">
+    <div class="family-bond-header">
+      <h2>Family Bond App</h2>
+      <button onclick="toggleFamilyBond()" class="close-button">&times;</button>
+    </div>
+    <div class="family-bond-body">
+      
+      <!-- Welcome & Onboarding Section -->
+      <div class="section" id="welcome">
+        <h3>Welcome to Family Bond</h3>
+        <p>Connect and engage with your family through activities and challenges!</p>
+        <button onclick="showSection('dashboard')">Get Started</button>
+      </div>
+      
+      <!-- Home Dashboard Section -->
+      <div class="section" id="dashboard" style="display: none;">
+        <h4>Home Dashboard</h4>
+        <p>Overview of family activities, recent interactions, and upcoming challenges.</p>
+        <button onclick="showSection('profile')">Family Profile</button>
+        <button onclick="showSection('quiz')">Quizzes & Challenges</button>
+        <button onclick="showSection('leaderboard')">Leaderboard</button>
+        <button onclick="showSection('settings')">Settings</button>
+      </div>
+      
+      <!-- Family Profile Section -->
+      <div class="section" id="profile" style="display: none;">
+        <h4>Family Profile</h4>
+        <p>Manage family members, track engagement, and invite new members.</p>
+        <button onclick="showSection('dashboard')">Back to Dashboard</button>
+      </div>
+      
+      <!-- Quizzes & Challenges Section -->
+      <div class="section" id="quiz" style="display: none;">
+        <h4>Quizzes & Challenges</h4>
+        <p>Take quizzes to learn more about each other and participate in weekly challenges.</p>
+        <button onclick="showSection('dashboard')">Back to Dashboard</button>
+      </div>
+      
+      <!-- Leaderboard Section -->
+      <div class="section" id="leaderboard" style="display: none;">
+        <h4>Leaderboard</h4>
+        <p>See how your family ranks and earn badges for achievements.</p>
+        <button onclick="showSection('dashboard')">Back to Dashboard</button>
+      </div>
+      
+      <!-- Settings Section -->
+      <div class="section" id="settings" style="display: none;">
+        <h4>Settings</h4>
+        <p>Manage privacy, notification preferences, and app language.</p>
+        <button onclick="showSection('dashboard')">Back to Dashboard</button>
+      </div>
+      
+      <!-- Feedback & Support Section -->
+      <div class="section" id="support" style="display: none;">
+        <h4>Feedback & Support</h4>
+        <p>Have feedback or need help? Contact our support team here.</p>
+        <button onclick="showSection('dashboard')">Back to Dashboard</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+    <!-- Deals Section (for features) -->
+    <section class="section__container deals__container">
+      <div class="deals__card">
+        <h2 class="section__header">Key Features</h2>
+        <p>Access information and support resources directly through MigeBot.</p>
+      </div>
+      <div class="deals__card">
+        <span><i class="ri-user-voice-line"></i></span>
+        <h4>Chat-Based Guidance</h4>
+        <p>Ask MigeBot questions and receive instant guidance on family and gender issues.</p>
+      </div>
+      <div class="deals__card">
+        <span><i class="ri-booklet-line"></i></span>
+        <h4>Resources Library</h4>
+        <p>Explore articles, policies, and strategies on child protection, gender-based violence, and more.</p>
+      </div>
+      <div class="deals__card">
+        <span><i class="ri-team-line"></i></span>
+        <h4>Family Cohesion Activities</h4>
+        <p>Strengthen family bonds with interactive activities and expert tips.</p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section__container about__container" id="about">
+      <div class="about__header">
+        <div>
+          <h2 class="section__header">About Us</h2>
+          <p class="section__description">
+            MigeBot is dedicated to supporting family cohesion, gender equality, and child protection through accessible information and interactive tools.
+          </p>
+        </div>
+        <button class="about__btn">Learn More</button>
+      </div>
+      <div class="about__content">
+        <div class="about__image">
+          <img src="assets/about.png" alt="About MigeBot" />
+        </div>
+        <div class="about__grid">
+          <div class="about__card">
+            <h3>1.</h3>
+            <h4>Who We Are</h4>
+            <p>MigeBot is a trusted source of information on family and gender issues.</p>
+          </div>
+          <div class="about__card">
+            <h3>2.</h3>
+            <h4>Our Mission</h4>
+            <p>Empowering individuals with resources and support for family cohesion and equality.</p>
+          </div>
+          <div class="about__card">
+            <h3>3.</h3>
+            <h4>How We Help</h4>
+            <p>Providing quick access to valuable information on gender policies, family tips, and safety resources.</p>
+          </div>
+          <div class="about__card">
+            <h3>4.</h3>
+            <h4>Creating Positive Change</h4>
+            <p>Helping families create stronger bonds and live in safer, more supportive environments.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="section__container product__container" id="resources">
+      <h2 class="section__header">Resource Library</h2>
+      <div class="product__grid">
+        <div class="product__card">
+          <h4>Child Protection Guide</h4>
+          <p>Comprehensive guidelines for child safety.</p>
+        </div>
+        <div class="product__card">
+          <h4>Gender-Based Violence Policies</h4>
+          <p>Access resources for understanding and preventing violence.</p>
+        </div>
+        <div class="product__card">
+          <h4>Family Cohesion Tips</h4>
+          <p>Ideas for building a connected, supportive family environment.</p>
+        </div>
+        <div class="product__card">
+          <h4>Communication Toolkit</h4>
+          <p>Enhance communication skills within your family.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section__container client__container">
+      <div class="client__content">
+        <h2 class="section__header">What Families Are Saying</h2>
+        <p class="section__description">
+          Real feedback from families and individuals benefiting from MigeBot.
+        </p>
+        <!-- Slider main container -->
+        <div class="swiper">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <div class="client__card">
+                <img src="assets/user-1.jpg" alt="user" />
+                <div>
+                  <p>
+                    MigeBot made it easy for us to find resources on child safety and family bonding. It’s a must-have!
+                  </p>
+                  <h4>Anna Williams</h4>
+                  <h5>Mother</h5>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <div class="footer__logo">
+            <a href="#" class="logo">MigeBot</a>
+          </div>
+          <p>
+            Join us in building strong, connected families and communities with accessible, reliable resources.
+          </p>
+          <ul class="footer__socials">
+            <li><a href="#"><i class="ri-facebook-fill"></i></a></li>
+            <li><a href="#"><i class="ri-twitter-fill"></i></a></li>
+            <li><a href="#"><i class="ri-linkedin-fill"></i></a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <ul class="footer__links">
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Policies</a></li>
+            <li><a href="#">Family Toolkit</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Support</h4>
+          <ul class="footer__links">
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bar">
+        Copyright © 2024 MigeBot. All rights reserved.
+      </div>
+    </footer>
+
+    <script>
+        // Toggle Chat Box visibility
+        function toggleChat() {
+          const chatBox = document.getElementById("chat-box");
+          const chatToggle = document.querySelector(".chat-toggle");
+    
+          if (chatBox.style.display === "none" || chatBox.style.display === "") {
+            chatBox.style.display = "flex"; // Show chat box
+            chatToggle.style.display = "none"; // Hide toggle button
+          } else {
+            chatBox.style.display = "none"; // Hide chat box
+            chatToggle.style.display = "flex"; // Show toggle button
+          }
+        }
+    
+        // Handle sending message
+        function sendMessage() {
+          const inputField = document.getElementById("chat-input");
+          const chatContent = document.getElementById("chat-content");
+    
+          if (inputField.value.trim()) {
+            // Add user's message to chat
+            const userMessage = document.createElement("p");
+            userMessage.textContent = inputField.value;
+            userMessage.style.textAlign = "right";
+            userMessage.style.margin = "8px 0";
+            chatContent.appendChild(userMessage);
+    
+            // Clear input
+            inputField.value = "";
+    
+            // MigeBot response simulation (replace with actual response logic if needed)
+            const botMessage = document.createElement("p");
+            botMessage.textContent = "I'm here to help. Please provide more details.";
+            botMessage.style.textAlign = "left";
+            botMessage.style.margin = "8px 0";
+            chatContent.appendChild(botMessage);
+    
+            // Scroll to the bottom of the chat
+            chatContent.scrollTop = chatContent.scrollHeight;
+          }
+        }
+    
+        // Open chat box automatically on page load
+        window.onload = function() {
+          const chatBox = document.getElementById("chat-box");
+          const chatToggle = document.querySelector(".chat-toggle");
+    
+          chatBox.style.display = "flex"; // Display chat box on load
+          chatToggle.style.display = "none"; // Hide toggle button on load
+        };
+
+
+         
+  
+        
+
+
+        // Toggle Family Bond App modal
+function toggleFamilyBond() {
+  const modal = document.getElementById("family-bond-modal");
+  modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+}
+
+// Function to show sections
+function showSection(sectionId) {
+  const sections = document.querySelectorAll('.family-bond-body .section');
+  sections.forEach(section => section.style.display = 'none'); // Hide all sections
+  
+  document.getElementById(sectionId).style.display = 'block'; // Show selected section
+}
+
+
+    </script>
+    
+    
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
